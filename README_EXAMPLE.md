@@ -1,5 +1,3 @@
-**⚠️ This is an example README for use in creating a Base Model. You will need to adjust this document for the model you are using.**
-
 <div align="center">
   <p>
     <a align="center" href="" target="_blank">
@@ -11,51 +9,42 @@
   </p>
 </div>
 
-# Autodistill CLIP Module
+# Autodistill LLaMA 2 Module
 
-This repository contains the code supporting the CLIP base model for use with [Autodistill](https://github.com/autodistill/autodistill).
+> [!TIP]
+> Autodistill is a framework for using large, foundation vision models to train smaller, faster models. Autodistill does not officially support distilling LLMs. This repository is an experiment.
 
-[CLIP](https://github.com/openai/CLIP), developed by OpenAI, is a computer vision model trained using pairs of images and text. You can use CLIP with autodistill for image classification.
+This repository contains the code supporting the LLaMA 2 base model for use with [Autodistill](https://github.com/autodistill/autodistill).
 
-Read the full [Autodistill documentation](https://autodistill.github.io/autodistill/).
-
-Read the [CLIP Autodistill documentation](https://autodistill.github.io/autodistill/base_models/clip/).
+[LLaMA 2](https://github.com/facebookresearch/llama) is an open-source Large Language Model (LLM) developed by Meta AI. You can use LLaMA 2 to label data for use in fine-tuning an LLM, or generating data for use in training another type of language model (i.e. text classifier).
 
 ## Installation
 
-To use CLIP with autodistill, you need to install the following dependency:
-
+To use LLaMA 23 with autodistill, you need to install the following dependency:
 
 ```bash
-pip3 install autodistill-clip
+pip3 install autodistill-llama-2
 ```
 
 ## Quickstart
 
 ```python
-from autodistill_clip import CLIP
+from autodistill_llama_2 import LLaMA
 
-# define an ontology to map class names to our GroundingDINO prompt
-# the ontology dictionary has the format {caption: class}
-# where caption is the prompt sent to the base model, and class is the label that will
-# be saved for that caption in the generated annotations
-# then, load the model
-base_model = CLIP(
-    ontology=CaptionOntology(
-        {
-            "person": "person",
-            "a forklift": "forklift"
-        }
-    )
-)
-base_model.label("./context_images", extension=".jpeg")
+base_model = LLaMA()
+
+result = base_model.predict("What is a cookie?")
+
+# data must be in a JSONL file with the structure
+# {"data": "[question] [answer]" }
+base_model.label("./data.jsonl")
 ```
 
 
 ## License
 
-[add license information here]
+The source code for this project is licensed under an MIT license. To use LLaMA, you must agree to Meta AI's [LLaMA 2 terms and conditions](https://ai.meta.com/resources/models-and-libraries/llama-downloads/).
 
 ## 🏆 Contributing
 
-We love your input! Please see the core Autodistill [contributing guide](https://github.com/autodistill/autodistill/blob/main/CONTRIBUTING.md) to get started. Thank you 🙏 to all our contributors!
+This module is currently experimental and not ready for external contributions. When this changes, we will update this section.
